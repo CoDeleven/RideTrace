@@ -1,6 +1,7 @@
 package com.studio701.activity
 
 import com.studio701.activity.entity.Activity
+import com.studio701.activity.entity.ActivityStatus
 import com.studio701.ride.entity.point.Point
 import java.util.*
 
@@ -22,11 +23,13 @@ fun genActivity():Activity{
             listOf(),
             genPoint(),
             genPoint(),
-            false,
+            ActivityStatus.REGISTER_TIME,
             listOf(),
             Date(),
-            5,
-            "手机账号测试",
+            Date(),
+            1000,
+            "手机",
             "测试路书ID"
+
     )
 }

@@ -8,12 +8,11 @@ import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 import org.springframework.data.mongodb.core.query.Update
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Repository
 
 @Component
 open class ActivityDao : ActivityRepository {
     override fun queryActivities(userId: String, skip: Int, num: Int): List<Activity> {
-        return template.find(Query.query(Criteria.where("userId").`is`(userId)).skip(skip).limit(num),
+        return template.find(Query.query(Criteria.where("author").`is`(userId)).skip(skip).limit(num),
                 Activity::class.java)
     }
 
@@ -27,8 +26,9 @@ open class ActivityDao : ActivityRepository {
     }
 
     override fun registerActivity(userId: String, activityId: String) {
-        template.upsert(Query.query(Criteria.where("_id").`is`(activityId)),
-                Update().addToSet(REGISTER_PEOPLE, userId), COLLECTION_NAME)
+        template.updateFirst(Query.query(Criteria.where("_id").`is`(activityId)),
+                Update().addToSet(REGISTER_PEOPLE, userId),
+                COLLECTION_NAME)
     }
 
     override fun createActivity(activity: Activity) {
@@ -39,12 +39,13 @@ open class ActivityDao : ActivityRepository {
     }
 
     override fun exitActivity(userId: String, activityId: String) {
-        template.upsert(Query.query(Criteria.where("_id").`is`(activityId)),
-                Update().pop(REGISTER_PEOPLE, Update.Position.LAST), COLLECTION_NAME)
+        template.updateFirst(Query.query(Criteria.where("_id").`is`(activityId)),
+                Update().pull(REGISTER_PEOPLE, userId), COLLECTION_NAME)
+
     }
 
     override fun enterActivity(userId: String, activityId: String) {
-        template.upsert(Query.query(Criteria.where("_id").`is`(activityId)),
+        template.updateFirst(Query.query(Criteria.where("_id").`is`(activityId)),
                 Update().addToSet(ENTER_PEOPLE, userId), COLLECTION_NAME)
     }
 }

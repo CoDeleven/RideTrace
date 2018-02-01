@@ -1,33 +1,40 @@
 package com.studio701.activity.entity
 
+import com.studio701.activity.annotations.Kako
 import com.studio701.ride.entity.point.Point
 import java.util.*
+enum class ActivityStatus{
+        REGISTER_TIME, RIDING_TIME, END_TIME
+}
 
+@Kako
 data class Activity(
-        val id:String?,
-        val title:String,
-        // 推广的用户
-        val publishUser:String,
-        val introduce:String,
-        val fee:Int,
+        var id:String?,
+        var title:String,
+        // 作者
+        var author:String,
+        var introduce:String,
+        var fee:Int,
         // 封面
-        val coverUrl:String,
+        var coverUrl:String,
         // 报名的人
-        val registerPeople:List<String>,
+        var registerPeople:List<String>,
         // 实际参加的人
-        val enterPeople:List<String>,
-        val originPoint: Point,
-        val endPoint:Point,
+        var enterPeople:List<String>,
+        var originPoint: Point,
+        var endPoint:Point,
         // 报名阶段、进行中、结束
-        val status:Boolean,
+        var status:ActivityStatus,
         // 标签
-        val tag:List<String>,
+        var tag:List<String>,
         // 创建日期
-        val publishDate: Date,
+        var publishDate: Date,
+        // 开始日期
+        var startDate:Date,
         // 限制人数
-        val limitNum:Int,
+        var limitNum:Int,
         // 联系电话
-        val phone:String,
+        var phone:String,
         // 路书Id
-        val routeId:String
+        var routeId:String
         )

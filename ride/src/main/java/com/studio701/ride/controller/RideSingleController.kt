@@ -1,6 +1,6 @@
 package com.studio701.ride.controller
 
-import com.studio701.ride.ResponseObject
+import com.studio701.ride.entity.ResponseObject
 import com.studio701.ride.entity.Route
 import com.studio701.ride.service.interfaces.IRideService
 import org.springframework.beans.factory.annotation.Autowired

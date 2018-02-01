@@ -1,6 +1,6 @@
 package com.studio701.ride.entity.point
 
-import com.mongodb.DBObject
-import org.springframework.data.mongodb.core.mapping.Document
+import com.studio701.activity.annotations.Kako
 
+@Kako
 data class Point(val lat:Double, val lon:Double)

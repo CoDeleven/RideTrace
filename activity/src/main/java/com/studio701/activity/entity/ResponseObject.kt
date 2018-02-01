@@ -1,4 +1,4 @@
-package com.studio701.ride
+package com.studio701.activity.entity
 
 data class ResponseObject<T>(
         val data:T?,
