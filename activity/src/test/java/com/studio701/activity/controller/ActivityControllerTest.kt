@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.JsonObject
 import com.mongodb.util.JSON
 import com.studio701.activity.*
-import com.studio701.activity.entity.Activity
-import com.studio701.activity.entity.ResponseObject
+import com.studio701.entity.common.ResponseObject
 import junit.framework.Assert.assertTrue
 import org.apache.commons.collections.map.MultiValueMap
 import org.junit.Before
@@ -45,7 +44,7 @@ class ActivityControllerTest {
 
     @Test
     fun testActivityQuery(){
-        val url = "/activity/admin?skip=0&num=10"
+        val url = "/activity/admin?skip=10&num=20"
         val data = ObjectMapper().readValue(get(url, mockMvc, null), ResponseObject::class.java).data
         println(data)
         assertTrue(data != null)
@@ -56,5 +55,12 @@ class ActivityControllerTest {
         val url = "/activity/exit/5a72c2efc54b318f7c3d32c1/admin"
 
         assertEquals(ObjectMapper().writeValueAsString(ResponseObject<String>()), put(url, mockMvc, null))
+    }
+
+    @Test
+    fun testActivityDelete(){
+        val url = "/activity/5a730190c54b314dec803693"
+
+        assertEquals(ObjectMapper().writeValueAsString(ResponseObject<String>()), delete(url, mockMvc))
     }
 }

@@ -42,4 +42,17 @@ class ActivityDaoTest {
     fun testActivityExit(){
         activityDao.exitActivity("admin","5a703ba80688e921688fad88")
     }
+
+    @Test
+    fun testActivityUpdate(){
+        val activity = genActivity()
+        activity.id = "5a9137f0c37fe308d8c48564"
+        println(activity)
+        activityDao.updateActivities(activity)
+    }
+
+    @Test
+    fun testActivityDelete(){
+        activityDao.deleteActivity("5a730190c54b314dec803694")
+    }
 }

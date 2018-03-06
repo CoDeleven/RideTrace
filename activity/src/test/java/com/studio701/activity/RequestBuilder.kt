@@ -24,5 +24,5 @@ fun get(url:String, mockMvc:MockMvc, params:Map<String, String>?):String{
 }
 fun delete(url:String, mockMvc:MockMvc):String{
     return mockMvc.perform(MockMvcRequestBuilders
-            .put(url)).andExpect(MockMvcResultMatchers.status().isOk).andReturn().response.contentAsString
+            .delete(url)).andExpect(MockMvcResultMatchers.status().isOk).andReturn().response.contentAsString
 }

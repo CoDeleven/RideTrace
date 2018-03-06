@@ -1,8 +1,7 @@
 package com.studio701.activity
 
-import com.studio701.activity.entity.Activity
-import com.studio701.activity.entity.ActivityStatus
-import com.studio701.ride.entity.point.Point
+import com.studio701.entity.activity.Activity
+import com.studio701.entity.common.Point
 import java.util.*
 
 fun genRandomDouble(scope:Int):Double{
@@ -19,17 +18,20 @@ fun genActivity():Activity{
             "测试介绍测试介绍测试介绍",
             100,
             "封面测试",
+            "路书封面",
             listOf("admin"),
             listOf(),
             genPoint(),
-            genPoint(),
-            ActivityStatus.REGISTER_TIME,
+            Date(),
+            0,
             listOf(),
             Date(),
             Date(),
             1000,
             "手机",
-            "测试路书ID"
+            "测试路书ID",
+            10,
+            100.0
 
     )
 }

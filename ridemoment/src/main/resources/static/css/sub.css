@@ -1,0 +1,36 @@
+.demo-card-header-pic{
+	margin-left: 16px;
+	margin-right: 16px;
+}
+.enroll-btn{
+	width:50%;
+	height: 1.5rem;
+	border-radius: 20px;
+	box-shadow: 2px 1px 10px #222222;
+	text-align: center;
+	margin: 0 auto;
+	line-height: 1.5rem;
+	background-color: #3498db;
+	color: #FFFFFF;
+	font-size: 0.9rem;
+	display: inline-block;
+}
+p{
+	font-size: 0.7rem;
+}
+.myCheckbox{
+	width: 0.7rem;
+	height: 0.7rem;
+	text-align: center;
+	line-height: 0.7rem;
+}
+label{
+	font-size: 0.7rem;
+	text-align: center;
+}
+.protocol{
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+	height: auto;
+}

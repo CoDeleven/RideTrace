@@ -20,7 +20,6 @@ import org.springframework.web.socket.server.support.DefaultHandshakeHandler
 import java.lang.Exception
 
 @Configuration
-@EnableWebSocket
 @EnableWebSocketMessageBroker
 open class WebsocketConfig:AbstractWebSocketMessageBrokerConfigurer(), WebSocketConfigurer{
     override fun registerStompEndpoints(registry: StompEndpointRegistry?) {
@@ -43,8 +42,6 @@ open class WebsocketConfig:AbstractWebSocketMessageBrokerConfigurer(), WebSocket
     }
 
     override fun registerWebSocketHandlers(registry: WebSocketHandlerRegistry?) {
-        registry?.addHandler(GroupHandler(), "/toGroup")?.setAllowedOrigins("*")
-                ?.addInterceptors(HandshakeInterceptor())?.withSockJS()
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 }

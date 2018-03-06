@@ -1,0 +1,7 @@
+com\studio701\entity\moment\Moment.class
+com\studio701\entity\moment\FavoriteItem.class
+com\studio701\entity\moment\PhotoInfo.class
+com\studio701\entity\User.class
+com\studio701\entity\ride\SimpleRideTrace.class
+com\studio701\entity\friend\FriendNote.class
+com\studio701\entity\moment\Comment.class

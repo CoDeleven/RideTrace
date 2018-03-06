@@ -1,32 +1,51 @@
 package com.studio701.ride.controller
 
-import com.studio701.ride.entity.ResponseObject
-import com.studio701.ride.entity.Route
+import com.studio701.entity.common.ResponseObject
+import com.studio701.entity.ride.SimpleRideTrace
 import com.studio701.ride.service.interfaces.IRideService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.client.RestTemplate
 
 @RestController
-@RequestMapping(path = ["/ride-single"])
+@RequestMapping(path = ["/ride"])
 class RideSingleController {
-    enum class MatrixQueryKey(val label:String){
-        PAGE("page"), SIZE("size"), USER_ID("userId")
-    }
+
+    @Autowired
+    lateinit var template: RestTemplate
+
     @Autowired
     lateinit var rideService: IRideService
 
-    @RequestMapping(path = ["/trace"], method = [RequestMethod.PUT])
-    fun createRoute(route:Route): ResponseObject<String> {
+    @RequestMapping(path = ["/"], method = [RequestMethod.POST])
+    fun createRoute(route: SimpleRideTrace): ResponseObject<String> {
         rideService.createTrace(route)
         return ResponseObject()
     }
 
-    @RequestMapping(path = ["/trace/{userId}"], method = [RequestMethod.GET])
-    fun getTrace(@PathVariable("userId") userId:String, @RequestParam("page") page:Int, @RequestParam("perPageSize") perPageSize:Int): ResponseObject<List<Route>> {
-        if(page < 1){
-            return ResponseObject(400, "Bad Request: The Page Number Must Greater Than Zero.")
+    @RequestMapping(path = ["/{userId}"], method = [RequestMethod.GET])
+    fun getTrace(@PathVariable("userId") userId: String, @RequestParam("skip") skip: Int, @RequestParam("num") num: Int): ResponseObject<List<SimpleRideTrace>> {
+        return ResponseObject(rideService.queryTrace(userId, skip, num))
+    }
+
+    @RequestMapping(path = ["/activities/{activityId}"], method = [RequestMethod.GET])
+    fun getOtherInfoInActivity(@PathVariable("activityId") activityId: String): ResponseObject<*> {
+        val ids = rideService.queryOtherPeopleInActivity(activityId)
+        var url = ""
+        ids.forEach {
+            url += (it + "&")
         }
 
-        return ResponseObject(rideService.queryTrace(userId, (page - 1) * perPageSize, perPageSize))
+        val response = template.getForEntity("http://RIDETRACE-USER/user/more/${url.substring(0, url.length - 1)}",
+                ResponseObject::class.java)
+        return response.body
+    }
+
+    @RequestMapping(path = ["/test/{activityId}"], method = [RequestMethod.GET])
+    fun test(@PathVariable("activityId") activityId: String): ResponseObject<*> {
+
+        val response = template.getForEntity("http://RIDETRACE-USER/user/more/admin",
+                ResponseObject::class.java)
+        return response.body
     }
 }
