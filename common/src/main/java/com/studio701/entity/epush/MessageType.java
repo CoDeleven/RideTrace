@@ -5,5 +5,6 @@ public enum MessageType {
     SOS,
     HELP,
     PARTICIPATE,
-    SIGNIN
+    SIGNIN,
+    NORMAL
 }

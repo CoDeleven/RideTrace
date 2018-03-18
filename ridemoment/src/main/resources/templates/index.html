@@ -1,66 +1,77 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
-		<title></title>
-		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css" />
-        <style>
-            #three-line {
-                display: -webkit-box !important;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                word-break: break-all;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 3;
-                font-size: 0.5rem;
-                color:#7f8c8d;
-            }
-        </style>
-	</head>
-
-	<body>
-
-		<div class="card" th:each="item:${itemList}">
-			<div class="card-content" th:attr="data-item-id=${item.id}" onclick="onItemClick(this)">
-				<div class="list-block media-list">
-					<ul>
-						<li class="item-content">
-							<div class="item-media">
-								<img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="88"/>
-							</div>
-							<div class="item-inner">
-								<div class="item-title-row">
-									<div class="item-title">
-                                        <span th:text="${item.title}"></span>
-                                    </div>
-								</div>
-                                <div class="content-padded" id="three-line" style="padding: 0px;">
-                                    <span th:text="${item.introduction}"></span>
-                                </div>
-							</div>
-                            <div class="content-padded docs-icons">
-                                <span class="icon icon-right"></span>
-                            </div>
-
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="card-footer">
-				<span th:text="${#dates.format(dateMap.get(item.id),'yyyy-MM-dd HH:mm:ss')}"></span>
-				<span>参与人数：100</span>
-			</div>
-		</div>
-
-	</body>
-	<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-    <script>
-        function onItemClick(item) {
-            var id = item.getAttribute("data-item-id")
-            window.location.href='/sub/' + id;
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;"/>
+    <title></title>
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css"/>
+    <style>
+        #three-line {
+            display: -webkit-box !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: break-all;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            font-size: 0.65rem;
+            color: #5f646e;
         }
-    </script>
+
+        #match-publish-date {
+            font-size: 0.6rem;
+        }
+
+        img {
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card" th:each="item:${itemList}">
+    <div class="card-content" th:attr="data-item-id=${item.id}" onclick="onItemClick(this)">
+        <div class="list-block media-list">
+            <ul>
+                <li class="item-content">
+                    <div class="item-media">
+                        <img th:attr="src=${item.coverUrl}" width="120px"/>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">
+                                <span th:text="${item.title}"></span>
+                            </div>
+                        </div>
+                        <div class="content-padded" id="three-line" style="padding: 0px;">
+                            <span th:text="${item.introduction}"></span>
+                        </div>
+                    </div>
+                    <div class="content-padded docs-icons">
+                        <span class="icon icon-right"></span>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-footer" style="min-height: 1.5rem;">
+        <span id="match-publish-date" th:text="${#dates.format(dateMap.get(item.id),'yyyy-MM-dd HH:mm:ss')}"></span>
+
+        <span id="match-publish-date"
+              th:text="${'参与人数：' + item.enrollPeopleNum + ' / ' + item.limitPeopleNum}">100</span>
+    </div>
+</div>
+
+</body>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script>
+    function onItemClick(item) {
+        var id = item.getAttribute("data-item-id")
+        window.location.href = '/sub/' + id;
+    }
+</script>
 </html>

@@ -1,6 +1,7 @@
 package com.studio701.ridemoment.dao
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.mongodb.BasicDBObject
 import com.studio701.entity.moment.Comment
 import com.studio701.entity.moment.FavoriteItem
 import com.studio701.entity.moment.Moment
@@ -59,5 +60,15 @@ open class MomentDao {
         val update = Update()
         update.addToSet("comments", comment)
         template.upsert(Query.query(Criteria.where("_id").`is`(momentId)), update, MOMENT_COLLECTION_NAME)
+    }
+
+    fun deleteLike(momentId: String, userId: String) {
+        val obj = BasicDBObject()
+        obj.put("userId", userId)
+        template.updateFirst(
+                Query.query(Criteria.where("_id").`is`(momentId)),
+                Update().pull("favorites", obj),
+                MOMENT_COLLECTION_NAME
+        )
     }
 }

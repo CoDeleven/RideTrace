@@ -14,7 +14,16 @@ public class Match {
     private String originPoint;
     private int enrollPeopleNum;
     private int limitPeopleNum;
+    private long createTime;
 
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public Match setCreateTime(long createTime) {
+        this.createTime = createTime;
+        return this;
+    }
 
     public String getIntroduction() {
         return introduction;

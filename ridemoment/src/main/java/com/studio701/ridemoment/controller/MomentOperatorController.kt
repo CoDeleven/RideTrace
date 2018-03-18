@@ -33,5 +33,10 @@ class MomentOperatorController {
         return ResponseObject()
     }
 
+    @RequestMapping(path = ["/{userId}/dislike/{momentId}"], method = [RequestMethod.PUT])
+    fun deleteLike(@PathVariable("momentId") momentId:String, @PathVariable("userId") userId:String):ResponseObject<String>{
+        momentOperatorDao.deleteLike(momentId, userId)
+        return ResponseObject()
+    }
 
 }
